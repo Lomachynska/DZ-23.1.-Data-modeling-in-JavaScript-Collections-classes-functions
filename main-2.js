@@ -16,32 +16,47 @@ console.log('#6. JavaScript homework example file')
 
 class CalorieCalculator {
   constructor() {
-    // code here
+    this.products = new Map(); // Внутрішнє сховище для продуктів
   }
 
-  addProduct() {
-    // code here
+  // Метод для додавання продукту та його калорійності
+  addProduct(productName, calories) {
+    this.products.set(productName, calories);
   }
 
+  // Метод для отримання калорійності продукту
   getProductCalories(productName) {
-    // code here
+    if (this.products.has(productName)) {
+      return this.products.get(productName);
+    } else {
+      return 'Продукт не знайдено';
+    }
   }
 
+  // Метод для видалення продукту
   removeProduct(productName) {
-    // code here
+    this.products.delete(productName);
   }
 }
 
 // Демонстрація використання
-// const calorieCalculator = new CalorieCalculator()
-// calorieCalculator.addProduct('Apple', 52)
-// calorieCalculator.addProduct('Banana', 89)
-//
-// console.log(calorieCalculator.getProductCalories('Apple')) // 52
-// console.log(calorieCalculator.getProductCalories('Banana')) // 89
-//
-// calorieCalculator.removeProduct('Apple')
-// console.log(calorieCalculator.getProductCalories('Apple')) // Product not found
+const calorieCalculator = new CalorieCalculator();
+calorieCalculator.addProduct('Яблуко', 52);
+calorieCalculator.addProduct('Банан', 89);
+
+console.log(calorieCalculator.getProductCalories('Яблуко')); // 52
+console.log(calorieCalculator.getProductCalories('Банан')); // 89
+
+calorieCalculator.removeProduct('Яблуко');
+console.log(calorieCalculator.getProductCalories('Яблуко')); // Продукт не знайдено
+
+
+// Конструктор: Ініціалізує новий Map для зберігання продуктів та їх калорійності.
+// addProduct: Приймає назву продукту та кількість калорій, додаючи їх до мапи.
+// getProductCalories: Перевіряє, чи існує продукт у мапі. Якщо так, повертає кількість калорій, інакше – повертає 'Продукт не знайдено'.
+// removeProduct: Видаляє вказаний продукт з мапи.
+
+
 
 /*
  * #2
@@ -59,30 +74,38 @@ class CalorieCalculator {
 
 class UniqueUsernames {
   constructor() {
-    // code here
+    this.usernames = new Set(); // Внутрішнє сховище для унікальних імен користувачів
   }
 
+  // Метод для додавання імені користувача
   addUser(username) {
-    // code here
+    this.usernames.add(username); // Додає ім'я, якщо його ще немає
   }
 
+  // Метод для перевірки наявності імені
   exists(username) {
-    // code here
+    return this.usernames.has(username); // Повертає true, якщо ім'я існує
   }
 
+  // Метод для отримання кількості унікальних імен
   count() {
-    // code here
+    return this.usernames.size; // Повертає кількість унікальних імен
   }
 }
 
 // Демонстрація використання
-// const uniqueUsernames = new UniqueUsernames()
-// uniqueUsernames.addUser('john_doe')
-// uniqueUsernames.addUser('jane_doe')
-// uniqueUsernames.addUser('john_doe') // Ця дія не змінить набір, оскільки 'john_doe' вже існує
-//
-// console.log(`Існує 'john_doe': ${uniqueUsernames.exists('john_doe')}`) // true
-// console.log(`Кількість унікальних імен: ${uniqueUsernames.count()}`) // 2
+const uniqueUsernames = new UniqueUsernames();
+uniqueUsernames.addUser('john_doe');
+uniqueUsernames.addUser('jane_doe');
+uniqueUsernames.addUser('john_doe'); // Ця дія не змінить набір, оскільки 'john_doe' вже існує
+
+console.log(`Існує 'john_doe': ${uniqueUsernames.exists('john_doe')}`); // true
+console.log(`Кількість унікальних імен: ${uniqueUsernames.count()}`); // 2
 
 // Експорт для використання в тестах
-export { CalorieCalculator, UniqueUsernames }
+export { UniqueUsernames };
+
+// Конструктор: Ініціалізує новий Set для зберігання унікальних імен користувачів.
+// addUser: Додає ім'я користувача до набору. Якщо ім'я вже існує, Set автоматично ігнорує його.
+// exists: Перевіряє, чи існує вказане ім'я в наборі, і повертає true або false.
+// count: Повертає кількість унікальних імен, які зберігаються в наборі.
